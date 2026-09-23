@@ -88,7 +88,7 @@ html, body {
 }
 
 .leaf img {
-  width: 100%;
+  width: 90%;
   height: auto;
   pointer-events: none;
   display: block;
@@ -382,6 +382,10 @@ html, body {
   
   #letter-panel {
     gap: 1vh;
+  }
+
+  .leaf img {
+    width: 100%;
   }
 }
 
