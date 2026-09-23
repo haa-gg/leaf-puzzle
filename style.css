@@ -1,0 +1,388 @@
+/* ================================================================
+   HER TREES Â· Leaf Puzzle  â€” style.css
+   ================================================================ */
+
+@font-face {
+  font-family: 'Nafta Light';
+  src: url('NaftaLight-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --black:  #0a0a0a;
+  --white:  #f8f4ed;
+  --ink:    #1a1a1a;
+  --paper:  #e8e2d9;
+  --dim:    rgba(0,0,0,0.55);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--black);
+  font-family: 'Nafta Light', cursive;
+  color: var(--white);
+}
+
+/* â”€â”€ Scene Layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+#scene {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  position: relative;
+  background: url('images/blackfade_120.png') center / cover no-repeat;
+}
+
+/* â”€â”€ Board (puzzle area) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+#board-wrap {
+  flex: 0 0 auto;
+  width: 68vw;
+  height: 88vh;
+  margin-top: 2vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+#board {
+  position: relative;
+  width: 92%;
+  height: 92%;
+  background: url('images/grayback_79.png') center / cover no-repeat;
+  background-color: #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* â”€â”€ Leaves â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+.leaf {
+  position: absolute;
+  cursor: grab;
+  user-select: none;
+  /* width set per leaf in JS */
+  transition: filter 0.15s ease, transform 0.1s ease;
+  filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.35));
+  touch-action: none;
+}
+
+.leaf:active {
+  cursor: grabbing;
+  transform: scale(1.04) rotate(1deg);
+  filter: drop-shadow(4px 8px 14px rgba(0,0,0,0.55));
+  z-index: 999 !important;
+}
+
+.leaf img {
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  display: block;
+}
+
+/* â”€â”€ Sidebar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+#sidebar {
+  flex: 0 0 auto;
+  width: 30vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2vh 2vw;
+}
+
+
+/* â”€â”€ Letter Panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+#letter-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh;
+  width: 100%;
+}
+
+/* Sequence display dots */
+#sequence-display {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+
+.seq-dot {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: rgba(255,255,255,0.35);
+  background: transparent;
+  transition: color 0.2s;
+}
+
+.seq-dot.filled {
+  color: #fff;
+}
+
+.seq-dot.shake {
+  animation: shake 0.4s ease;
+}
+
+/* Grid of letter buttons */
+#letter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 240px;
+}
+
+.letter-btn {
+  background: transparent;
+  border: none;
+  color: var(--white);
+  font-family: 'Nafta Light', cursive;
+  font-size: 1.8rem;
+  padding: 8px 0;
+  cursor: pointer;
+  transition: opacity 0.18s, transform 0.1s;
+  letter-spacing: 1px;
+}
+
+.letter-btn:hover {
+  opacity: 0.65;
+  transform: scale(1.1);
+}
+
+.letter-btn:active {
+  transform: scale(0.95);
+}
+
+.letter-btn.used {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+#clear-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.35);
+  font-family: 'Nafta Light', cursive;
+  font-size: 0.9rem;
+  padding: 6px 18px;
+  cursor: pointer;
+  transition: color 0.2s;
+  letter-spacing: 1px;
+}
+
+#clear-btn:hover {
+  color: rgba(255,255,255,0.8);
+}
+
+
+
+/* â”€â”€ Unlock Overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+#unlock-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(6px);
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+#unlock-overlay.hidden {
+  display: none;
+}
+
+#unlock-overlay.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+#unlock-box {
+  max-width: 520px;
+  width: 90vw;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 52px 48px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+  position: relative;
+}
+
+#unlock-glyph {
+  font-size: 2.4rem;
+  color: rgba(255,255,255,0.6);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+#unlock-title {
+  font-size: 2rem;
+  letter-spacing: 4px;
+  font-weight: normal;
+  color: var(--white);
+}
+
+#unlock-message {
+  font-family: 'Nafta Light', cursive;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.75);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 20px 0;
+  width: 100%;
+}
+
+#unlock-close {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 4px;
+  color: rgba(255,255,255,0.55);
+  font-family: 'Nafta Light', cursive;
+  font-size: 0.9rem;
+  padding: 8px 24px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+#unlock-close:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* â”€â”€ Animations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-5px); }
+  40%       { transform: translateX(5px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.15); }
+}
+
+/* Wrong-code flash */
+.seq-dot.wrong {
+  color: rgba(255,80,80,0.9);
+  animation: shake 0.4s ease;
+}
+
+#tree-logo {
+  text-align: center;
+  margin-bottom: 4vh;
+}
+
+#logo-glyph {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  color: rgba(255,255,255,0.6);
+}
+
+#logo-title {
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+#logo-sub {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ── Letter Panel ─────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  #scene {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  #board-wrap {
+    width: 95vw;
+    height: 55vh;
+    margin-top: 2vh;
+  }
+
+  #sidebar {
+    width: 95vw;
+    height: 43vh;
+    padding: 1vh 2vw;
+    justify-content: flex-start;
+    gap: 1vh;
+  }
+
+  #letter-grid {
+    gap: 8px;
+  }
+
+  .letter-btn {
+    font-size: 1.5rem;
+    padding: 4px 0;
+  }
+
+  #tree-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    margin-bottom: 2vh;
+  }
+
+  #logo-glyph {
+    font-size: 1.2rem;
+  }
+
+  #logo-title {
+    font-size: 1.2rem;
+  }
+
+  #logo-sub {
+    font-size: 0.9rem;
+  }
+  
+  #letter-panel {
+    gap: 1vh;
+  }
+}
+
+
