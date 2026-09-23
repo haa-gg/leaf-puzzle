@@ -13,8 +13,8 @@
     }
 
     body {
-      background: url('images/ancient_symbol.svg') center / cover no-repeat,
-                  url('images/blackfade_120.png') center / cover no-repeat;
+      background: url('images/blackfade_120.png') center / cover no-repeat;
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -25,6 +25,15 @@
       overflow-y: auto;
       min-height: 100vh;
       height: auto;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('images/ancient_symbol.svg') center / cover no-repeat;
+      opacity: 0.15;
+      z-index: -1;
     }
 
     h1 {
