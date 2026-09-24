@@ -331,9 +331,16 @@ html, body {
 /* ── Letter Panel ─────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
+  html, body {
+    height: auto;
+    overflow-y: auto;
+  }
+
   #scene {
     flex-direction: column;
     justify-content: flex-start;
+    height: auto;
+    min-height: 100vh;
   }
 
   #board-wrap {
